@@ -27,15 +27,20 @@ Applied log transformations to length, elevation_gain, popularity, and num_revie
 
 #### Data Visualization
 
-![download](https://github.com/user-attachments/assets/a25135b2-bcf2-42d6-a84b-64f319c0f3bb)
-![download](https://github.com/user-attachments/assets/143e2132-8db8-4f86-a1df-c0546967c3d0)
+Overall distribution of target variable
 ![download](https://github.com/user-attachments/assets/c1e23b35-7676-42ca-88a3-502395e61516)
-![download](https://github.com/user-attachments/assets/3e46188f-3d76-4e68-8d2c-1271c03f6fb1)
+Heavy skew toward 4-5 as rating, I anticipate this will make getting accurate results very difficult.
 
+![download](https://github.com/user-attachments/assets/3e46188f-3d76-4e68-8d2c-1271c03f6fb1)
 ![download](https://github.com/user-attachments/assets/2d347fc6-b7e2-4323-b221-7aec2bc8d291)
 
-![download](https://github.com/user-attachments/assets/e031cf24-d173-4226-a1dc-c3c11ee5acee)
 ![download](https://github.com/user-attachments/assets/45835a25-9c1c-4712-ba2e-ed82db83e1e2)
+
+
+![download](https://github.com/user-attachments/assets/a25135b2-bcf2-42d6-a84b-64f319c0f3bb)
+![download](https://github.com/user-attachments/assets/143e2132-8db8-4f86-a1df-c0546967c3d0)
+Many features seem to have a somewhat proportional distribution of variables with regards to the ratings, meaning there are a lot of features with what is probably no real corelation to the rating.
+![download](https://github.com/user-attachments/assets/e031cf24-d173-4226-a1dc-c3c11ee5acee)
 
 
 ### Problem Formulation
