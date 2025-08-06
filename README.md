@@ -1,4 +1,5 @@
-![UTA-DataScience-Logo](https://github.com/user-attachments/assets/709c1454-59e8-4387-84cb-b80ac950dfca)
+<img width="200" height="200" alt="439985615-8f615d7f-ee65-4a00-a34e-f376c185c484" src="https://github.com/user-attachments/assets/9f28d314-ed58-4885-b371-14dd59a6cede" />
+
 
 # AllTrails Average Rating Estimator
 
@@ -30,18 +31,15 @@ Applied log transformations to length, elevation_gain, popularity, and num_revie
 Overall distribution of target variable
 ![download](https://github.com/user-attachments/assets/c1e23b35-7676-42ca-88a3-502395e61516)
 Heavy skew toward 4-5 as rating, I anticipate this will make getting accurate results very difficult.
+<img width="984" height="484" alt="download" src="https://github.com/user-attachments/assets/9328f3ab-e1cd-4335-a4f1-1633063890b7" />
 
-![download](https://github.com/user-attachments/assets/3e46188f-3d76-4e68-8d2c-1271c03f6fb1)
-![download](https://github.com/user-attachments/assets/2d347fc6-b7e2-4323-b221-7aec2bc8d291)
-
-![download](https://github.com/user-attachments/assets/45835a25-9c1c-4712-ba2e-ed82db83e1e2)
-
-
-![download](https://github.com/user-attachments/assets/a25135b2-bcf2-42d6-a84b-64f319c0f3bb)
-![download](https://github.com/user-attachments/assets/143e2132-8db8-4f86-a1df-c0546967c3d0)
 Many features seem to have a somewhat proportional distribution of variables with regards to the ratings, meaning there are a lot of features with what is probably no real corelation to the rating.
-![download](https://github.com/user-attachments/assets/e031cf24-d173-4226-a1dc-c3c11ee5acee)
-
+<img width="984" height="484" alt="download" src="https://github.com/user-attachments/assets/a335a9f0-0c10-424f-b3db-991c532d4479" />
+<img width="984" height="484" alt="download" src="https://github.com/user-attachments/assets/f6ebd88d-78c7-4dd1-8f61-9a457dc22a06" />
+Log transforming the data though shows that popularity and similarly the number of reviews tend to have different peaks. Popularity seems to show a slight trend of higher scores given toward the more popular trails, which makes sense. This was also noticed somewhat with the probability distribution of the number of reviews for the trail, reinforcing this trend.
+<img width="984" height="484" alt="download" src="https://github.com/user-attachments/assets/91e801b2-fe5b-48f4-b106-819e5ff92027" />
+<img width="984" height="484" alt="download" src="https://github.com/user-attachments/assets/24d56366-6f17-4458-a075-c46ff7fcf0d0" />
+Other features like length show there's no true correlation, as the number of bad scores seems to be fairly consistent regardless of the length. 
 
 ### Problem Formulation
 
@@ -59,39 +57,41 @@ Once it got to the point where several attempts failed to produce better results
 
 Several roadblocks were hit in undergoing this project. The methods of feature extracting I attempted proved difficult to implement, and ultimately had to be given up on. The main hurdle was obtaining an api key from AllTrails, as they no longer have their development tools available. When I was unable to get one after days I had to move on without it and use a dataset created by someone else. As such, I was unable to verify the full accuracy and reliability of the data, and it would be out of date by several years.
 
-In addition, learning how to take features whose data was hundreds of different lists of options and performing binary encoding on the listed objects was a new to me process that took a bit of learning to figure out how to approach. 
+In addition, learning how to take features whose data was hundreds of different lists of options and performing binary encoding on the listed objects was a new to me process that took a bit of learning to figure out how to approach. Both the features of the trails as well as the activities you could participate in on the trail were both stored as a list of almost entirely different combinations of dozens of different options per trail, so breaking them into different colums without duplicating the repeated but out of order features such as "waterfall" or "strollers" I assumed might have a great influence in a trails score, but if not encoded properly could just end up giving the model bad data to train on.
 
-Lastly, the skew to the dataset made training difficult, as even with a R2 of .7252 the fact that the dataset didn't have many values less than 3 made it unable to learn when to predict a rating of 1-3.
+Lastly, the skew to the dataset made training difficult, as even with a R2 of .7252 the fact that the dataset didn't have many values less than 3 made it unable to learn when to predict a rating of 1-3. Of course, if nothing tends to get ratings that low, it'd make sense that a model wouldn't need to predict values that low either, however it is a flaw of the model nonetheless.
 
 ### Performance Comparison
 
 For this the R2 value was the main metric to determine overall reliability, though RMSE was also recorded as a separate metric.
 
 Random Forest Baseline
-R2
-RMSE
+R2 .7037
+RMSE .4406
 
 Random Forest (tuned)
-R2
-RMSE
+R2 .7166
+RMSE .4309
 
 XGBoost baseline
-R2
-RMSE
+R2 .7037
+RMSE .4406
 
 XGBoost (tuned)
-R2
-RMSE
+**R2 .7247**
+RMSE .4247
 
 Actual vs. predicted scatter plots with R² annotations.
-![r2_scatter_plot](https://github.com/user-attachments/assets/65dcd933-e76a-49e2-b0f1-6d881b43fa29)
+<img width="790" height="590" alt="download" src="https://github.com/user-attachments/assets/e4b36c8c-9c4c-4130-b221-6a3d957dc563" />
+
 
 Residual plots to assess variance and bias in model predictions.
-![residuals_plot](https://github.com/user-attachments/assets/d249ef02-6873-4b4b-a368-b74466560391)
+<img width="790" height="590" alt="download" src="https://github.com/user-attachments/assets/c41dc4dd-fb8f-4f50-9b8f-a005ded1319b" />
+
 
 ### Conclusions
 
-While the baseline looked like Random Forest would be our best model, XGBoost after parameter tuning managed to out perform it. 
+While the baseline looked like Random Forest would be our best model, XGBoost after parameter tuning managed to out perform it. However it's weaknesses were still obvious. Having such skewed data led to a model with a decent R2 value, however that was purely a testament to the data's skew and not the models performance as in the end the model was only able to guess high ratings, and since most ratings were high it seemed to show decent results when really a model could predict almost entirely a rating of 4 and get similar results.
 
 
 
@@ -101,7 +101,7 @@ In the future, routes to improve performance could include adding image-based fe
 
 Due to the age of this dataset as well, it would be interesting to see how these trails ratings and features have changed, as the dataset was gathered just before COVID times, and a lot of new attention has slowly been directed toward outdoor recreation since then.
 
-Getting new data overall would be a good approach too, as with the 6+ years since the data was scraped, thousands of new reviews and trails too have been created. Obtaining more sample data in the average rating of 1-3 especially would prove extremely useful.
+Getting new data overall would be a good approach too, as with the 6+ years since the data was scraped, thousands of new reviews and trails too have been created. Obtaining more sample data in the average rating of 1-3 especially would prove extremely useful. A useful approach would be to look more at specific trails and analyze the reviews individually, determining if there are seasons that tend to get better or worse reviews, and put that against other trails at the same parks to find both similar and disagreeing trends.
 
 ## How to reproduce results
 
@@ -111,14 +111,13 @@ Install required packages (see below).
 
 Run FinalModel.py.
 
-Output plots will be saved in Dataset/.
+Output plots will be saved in Data/.
 
 ### Overview of files in repository
 
 
 
-### Software Setup
-Dependencies:
+### Software Dependencies:
 pandas
 numpy
 matplotlib
